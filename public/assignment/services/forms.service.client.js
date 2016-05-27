@@ -24,13 +24,15 @@
             updateFormById: updateFormById
         };
 
+        return service;
+
         function createFormForUser(userId, form, callback) {
             var unique = (new Date).getTime();
 
             form._id = unique;
             form.userId = userId;
             forms.push(form);
-            callback(form);
+            callback(forms);
         }
 
         function findAllFormsForUser(userId, callback) {
@@ -59,7 +61,7 @@
                     form.title = newForm.title;
                 }
             });
-            callback(form);
+            callback(forms);
             }
         }
-});
+})();

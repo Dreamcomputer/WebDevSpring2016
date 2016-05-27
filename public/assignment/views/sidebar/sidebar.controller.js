@@ -1,19 +1,18 @@
 /**
  * Created by Rammer on 5/18/16.
  */
-/**
+
+'use strict';
 (function(){
-    'use strict';
     angular
         .module("FormBuilderApp")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController() {
-    }
-});
-**/
+    function SidebarController($scope, $location) {
 
-app.controller('SidebarController', function($scope){
-    $scope.SidebarController = function() {
+        $scope.isActive = function (viewLocation) {
+            var active = (viewLocation === $location.path());
+            return active;
+        };
     }
-});
+})();

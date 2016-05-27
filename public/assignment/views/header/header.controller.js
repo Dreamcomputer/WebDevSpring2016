@@ -2,9 +2,8 @@
  * Created by Rammer on 5/18/16.
  */
 
-/**
+'use strict';
 (function () {
-    'use strict';
     angular
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
@@ -18,17 +17,4 @@
             $location.url("/home");
         }
     }
-});
- **/
-
-app.controller('HeaderController', function($scope, $rootScope, $location){
-
-    $scope.HeaderController = function() {
-        $scope.logout = logout;
-
-        function logout() {
-            $rootScope.currentUser = null;
-            $location.url("/home");
-        }
-    }
-});
+})();

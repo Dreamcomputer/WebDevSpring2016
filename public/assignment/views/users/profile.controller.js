@@ -21,7 +21,7 @@
         $scope.profileLastName = currentUser.lastName;
         $scope.profileEmail = currentUser.email;
 
-        // To update the current user's info
+        // To create a new object with updated attributes
         function update() {
             var newUser = {
                 username: $scope.profileUsername,

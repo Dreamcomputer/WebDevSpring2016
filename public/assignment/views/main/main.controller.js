@@ -15,7 +15,7 @@
 });
  */
 
-var app = angular.module('FormBuilderApp', ["ngRoute"]);
+var app = angular.module('FormBuilderApp');
 
 app.controller('MainController', function($scope, $location){
 

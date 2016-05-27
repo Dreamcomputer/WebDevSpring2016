@@ -48,7 +48,7 @@
         function findUserByCredentials(username, password, callback) {
             var found = null;
 
-            users.ForEach(function (user) {
+            users.forEach(function (user) {
                 if (user.username === username && user.password === password) {
                     found = user;
                 }
@@ -76,18 +76,22 @@
         }
 
         function updateUser(userId, user, callback) {
-            users.Foreach(function (Olduser) {
+
+            var found = null;
+            users.forEach(function (previousUser) {
                 if (user._id === userId) {
-                    oldUser.firstName = user.firstName;
-                    oldUser.lastName = user.lastName;
-                    oldUser.username = user.username;
-                    oldUser.password = user.password;
-                    oldUser.email = user.email;
-                    $rootScope.currentUser = olduser;
+                    previousUser.firstName = user.firstName;
+                    previousUser.lastName = user.lastName;
+                    previousUser.username = user.username;
+                    previousUser.password = user.password;
+                    previousUser.email = user.email;
+
+                    found = previousUser;
+                    $rootScope.currentUser = found;
                 }
             });
-            callback(olduser);
+            callback(found);
         }
 
     }
-});
+})();

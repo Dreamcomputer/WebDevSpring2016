@@ -17,7 +17,7 @@
             var newUser = {
                 firstName: null,
                 lastName: null,
-                userName: $scope.userName,
+                username: $scope.username,
                 password: $scope.password,
                 email: $scope.email
             };
@@ -26,7 +26,7 @@
           if(user) {
             $rootScope.user = user;
             $rootScope.currentUser = user;
-            $location.url("/profle");
+            $location.url("/profile");
           }
          });
         }
