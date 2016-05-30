@@ -13,6 +13,20 @@ module.exports = function(app, usermodel) {
     app.get("/api/assignment/user?username=username&password=password", findUserbyCredentials);
     app.put("/api/assignment/user/:id", updateUserbyId);
     app.delete("/api/assignment/user/:id", deleteUserById);
+    // Added to login with $http POST request while Server-Side Execution
+    app.post("/api/assignment/user?username=username&password=password", login);
+
+    function login(req, res) {
+        var username = req.params.username;
+        var password = req.params.password;
+        var credentials = {
+            username: username,
+            password: password
+        };
+        var user = userModel.findUserByCredentials(credentials);
+        req.session.currentUser = user;
+        res.json(user);
+    }
 
     function createUser(req, res) {
         var user = req.body;

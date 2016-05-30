@@ -11,17 +11,23 @@
 
     function UserService($http) {
 
-        var service = {
+        var api = {
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             // Added while Server-Side Dev
-            findUserByUsername: findUserByUsername
+            findUserByUsername: findUserByUsername,
+            // Added to login with $http POST request while Server-Side Execution
+            login: login
         };
 
-        return service;
+        return api;
+
+        function login(username, password) {
+            return $http.post("/api/assignment/user?username=" + username + "&password=" + password);
+        }
 
         function findUserByUsername(username) {
             return $http.get("/api/assignment/user?username=" + username);
