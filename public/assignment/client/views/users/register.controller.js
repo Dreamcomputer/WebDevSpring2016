@@ -9,23 +9,31 @@
        .module("FormBuilderApp")
        .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $location, $rootScope, UserService) {
+    function RegisterController($location, $rootScope, UserService) {
 
-        $scope.register = register;
+        var vm = this;
+        vm.register = register;
+
+        // Inputs from view page as varibles here
+        // (only listed the ones that are needed to control the view)
+        vm.username;
+        vm.password;
+        vm.email;/Users/Rammer/WebstormProjects/cs4550/webdevelopment
 
         function register() {
             var newUser = {
                 firstName: null,
                 lastName: null,
-                username: $scope.username,
-                password: $scope.password,
-                email: $scope.email
+                username: vm.username,
+                password: vm.password,
+                email: vm.email
             };
 
-        UserService.createUser(newUser, function(user) {
-          if(user) {
-            $rootScope.user = user;
-            $rootScope.currentUser = user;
+        UserService.createUser(newUser)
+            .then(function(response) {
+               if(response.data) {
+             $rootScope.user = response.data;
+            $rootScope.currentUser = response.data;
             $location.url("/profile");
           }
          });

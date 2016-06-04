@@ -14,10 +14,16 @@
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
             deleteFormById: deleteFormById,
-            updateFormById: updateFormById
+            updateFormById: updateFormById,
+            // Added while fields view
+            findFormById: findFormById
         };
 
         return service;
+
+        function findFormById(formId) {
+            return $http.get("/api/assignment/form/" + formId);
+        }
 
         function createFormForUser(userId, form) {
             return $http.post("/api/assignment/user/" + userId + "/form", form);

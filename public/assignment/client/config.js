@@ -32,8 +32,13 @@
                     templateUrl: "views/forms/forms.view.html",
                     controller: "FormController"
                 })
-                .when("/form-fields", {
-                    templateUrl: "views/forms/form-fields.view.html",
+                .when("/field", {
+                    templateUrl: "views/forms/field.view.html"
+                })
+                .when("/form/:formId/field", {
+                    templateUrl: "views/forms/field.view.html",
+                    controller: "FieldController",
+                    controllerAs: "model"
                 })
                 .otherwise({
                     redirectTo: "/home"

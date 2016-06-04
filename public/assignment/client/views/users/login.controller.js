@@ -7,13 +7,16 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, $rootScope, $location, UserService) {
+    function LoginController($rootScope, $location, UserService) {
 
         // vm stands for ViewModel, this is the controller
         var vm = this;
 
-        //Inject functoin into the view model
+        //Inject function into the view model
         vm.login = login;
+        // Inputs from view page as varibles here
+        vm.username;
+        vm.password;
 
         // tries to login if user exists (stored in the $rootScope)
         function login() {

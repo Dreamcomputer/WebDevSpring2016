@@ -16,18 +16,18 @@ module.exports = function() {
     };
     return api;
 
-    function Create(user) {
+    function Create(givenuser) {
         var newUser = {
             _id: (new Date).getTime(),
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            roles: user.roles,
-            email: user.email
+            username: givenuser.username,
+            password: givenuser.password,
+            firstName: givenuser.firstName,
+            lastName: givenuser.lastName,
+            roles: givenuser.roles,
+            email: givenuser.email
         };
         users.push(newUser);
-        return users;
+        return newUser;
     }
 
     function FindAll() {

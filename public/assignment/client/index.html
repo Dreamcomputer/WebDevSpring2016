@@ -31,13 +31,12 @@
 
     <!-- app.js Import-->
     <script src="app.js"></script>
-    <script src="../server/app.js"></script>
-
     <!-- config.js Import -->
     <script src="config.js"></script>
     <!-- Load Services js fies here -->
     <script src="services/user.service.client.js"></script>
     <script src="services/forms.service.client.js"></script>
+    <script src="services/field.service.client.js"></script>
 
     <!-- Server Side Dev -->
     <!-- <script src="../server/services/form.service.server.js"></script> -->
@@ -51,9 +50,17 @@
     <script src="views/users/login.controller.js"></script>
     <script src="views/users/profile.controller.js"></script>
     <script src="views/users/register.controller.js"></script>
+    <script src="views/forms/field.controller.js"></script>
 
     <!-- Angular autocomplete -->
     <link href="css/angucomplete-alt.css" rel="stylesheet"/>
+
+    <!-- For Fields view and controls -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-sortable/0.13.4/sortable.js"></script>
+    <script src="views/forms/sortable/ng-sortable.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="views/forms/sortable/ng-sortable.min.css">
 
 </head>
 

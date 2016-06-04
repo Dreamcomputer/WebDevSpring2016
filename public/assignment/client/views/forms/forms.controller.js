@@ -9,61 +9,83 @@
 
     function FormController($scope, $rootScope, $location, FormService) {
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
+        var vm = this;
+
+        vm.formTitle;
+        vm.forms = [];
+        // for local function here;
+        var selectedForm;
+
+        vm.addForm = addForm;
+        vm.updateForm = updateForm;
+        vm.deleteForm = deleteForm;
+        vm.selectForm = selectForm;
 
         var currentUser = $rootScope.currentUser;
 
-        //Get the current array of forms for the currently logged in userf
-        FormService.findAllFormsForUser(currentUser._id,
-            function(response) {
-                $scope.forms = response;
-            });
+        function init() {
+                        FormService.findAllFormsForUser(currentUser._id)
+                            .then(function(response) {
+                                if (response.data) {
+                                    vm.forms = response.data;
+                                }
+                            });
+                    }
+        init();
 
-        function addForm() {
-            if ($scope.formTitle) {
+        var selectedFormId = null;
+
+        function addForm(form) {
+            if (vm.formTitle) {
                 var newForm = {
-                    title: $scope.formTitle
-                }
-
-                FormService.createFormForUser(currentUser._id, newForm,
-                    function(response) {
-                        $scope.forms = response;
+                    title: vm.formTitle
+                };
+                FormService.createFormForUser(currentUser._id, newForm)
+                    .then(function(response) {
+                        if (response.data) {
+                            vm.forms = response.data;
+                        }
                     });
             }
+            vm.formTitle = null;
         }
 
-        function updateForm() {
+        function updateForm(form) {
             // Array of form names for all the forms that a user has created
-            var formNames = $scope.forms.map(function(form) {
+            var formNames = vm.forms.map(function(form) {
                 return form.title
             });
 
             var updatedForm = {
-                title: $scope.formTitle
+                title: vm.formTitle
             }
+
             // To update a form if there is a valid form title and the user has selected a form to edit
-            if (formNames.indexOf($scope.formTitle) && $scope.selectedFormId) {
-                FormService.updateFormById($scope.selectedFormId, updatedForm,
-                    function(response) {
-                        $scope.forms = response;
+            if (formNames.indexOf(vm.formTitle) && selectedForm._id != null) {
+                FormService.updateFormById(selectedForm._id, updatedForm)
+                    .then(function(response) {
+                        if (response.data){
+                            vm.forms = response.data;
+                        }
                     });
             }
+            vm.formTitle = null;
         }
 
         function deleteForm(index) {
-            var deleteFormId = $scope.forms[index]._id;
+            var deleteFormId = vm.forms[index]._id;
 
-            FormService.deleteFormById(deleteFormId, function(response) {
-                $scope.forms = response;
+            FormService.deleteFormById(deleteFormId)
+                .then(function(response) {
+                    if (response.data) {
+                        vm.forms = response.data;
+                    }
             });
         }
 
         function selectForm(index) {
-            $scope.selectedFormId = $scope.forms[index]._id;
-            $scope.formTitle = $scope.forms[index].title;
+            selectedForm = vm.forms[index];
+            vm.formTitle = selectedForm.title;
         }
     }
 })();

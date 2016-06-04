@@ -1,6 +1,3 @@
-/**
- * Created by Rammer on 5/29/16.
- */
 
 'use strict';
 
@@ -31,7 +28,7 @@ module.exports = function(app, usermodel, formmodel) {
     function deleteFieldbyFieldandFormId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var found = formModel.deleteFieldByFieldandFormId(fieldId, formId);
+        var found = formmodel.deleteFieldByFieldandFormId(fieldId, formId);
         res.json(formmodel.findAllFieldsForFormId(formId));
     }
 
@@ -46,7 +43,7 @@ module.exports = function(app, usermodel, formmodel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var field = req.body;
-        var updatedField = formmodel.updateFieldByFormId(formId, fieldId, field);
-        res.json(formmodel.findAllFieldsForFormId(formId));
+        var updatedFields = formmodel.updateFieldByFormId(formId, fieldId, field);
+        res.json(updatedFields);
     }
 };

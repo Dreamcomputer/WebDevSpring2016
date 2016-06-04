@@ -20,10 +20,17 @@
             // Added while Server-Side Dev
             findUserByUsername: findUserByUsername,
             // Added to login with $http POST request while Server-Side Execution
-            login: login
+            login: login,
+            // Added to login with $http POST request while Server-Side Execution
+            // for pulling current profile info from server
+            getCurrentUser: getCurrentUser
         };
 
         return api;
+
+        function getCurrentUser() {
+            return $http.get("/api/assignment/currentuser");
+        }
 
         function login(username, password) {
             return $http.post("/api/assignment/user?username=" + username + "&password=" + password);
@@ -42,7 +49,7 @@
         }
 
         function createUser(user) {
-            return $http.post("/api/assignment/user", user);
+            return $http.post("/api/assignment/create", user);
         }
 
         function deleteUserById(userId) {

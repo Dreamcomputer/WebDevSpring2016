@@ -37,7 +37,7 @@ module.exports = function() {
         return found;
     }
 
-    function findFieldByFieldandFormId(fieldId, formId) {
+    function findFieldByFieldandFormId(formId, fieldId) {
         var found = null;
         var fields = findAllFieldsForFormId(formId);
         if (fields) {
@@ -51,7 +51,7 @@ module.exports = function() {
     }
 
     function deleteFieldByFieldandFormId(fieldId, formId) {
-        var field = findFieldByFieldandFormId(fieldId, formId);
+        var field = findFieldByFieldandFormId(formId, fieldId);
         var fields = findAllFieldsForFormId(formId);
         if (field) {
             fields.splice(fields.indexOf(field), 1);
@@ -83,7 +83,7 @@ module.exports = function() {
     }
 
     function updateFieldByFormId(formId, fieldId, field) {
-        var fieldtoUpdate = findFieldByFieldIdAndFormId(formId, fieldId);
+        var fieldtoUpdate = findFieldByFieldandFormId(formId, fieldId);
         if (fieldtoUpdate) {
             fieldtoUpdate._id = field._id;
             fieldtoUpdate.label = field.label;
@@ -99,7 +99,7 @@ module.exports = function() {
     function findAllFormsofUserId(userId) {
         var found = [];
         for (var f in forms) {
-            if (forms[f]._id === userId) {
+            if (forms[f].userId == userId) {
                 found.push(forms[f]);
             }
         }
@@ -110,11 +110,13 @@ module.exports = function() {
         var newForm = {
             _id: (new Date).getTime().toString(),
             title: form.title,
-            userId: form.userId,
+            userId: userId,
             fields: []
         };
         forms.push(newForm);
-        return forms;
+        var userId = newForm.userId;
+        var result = findAllFormsofUserId(userId);
+        return result;
     }
 
     function Create(form) {
@@ -145,19 +147,21 @@ module.exports = function() {
 
     function Update(formId, form) {
         var found = FindById(formId);
-
         if (found != null) {
             found.title = form.title;
-            found.userId = form.userId;
-            found.fields = form.fields
         }
+        var userId = found.userId;
+        return findAllFormsofUserId(userId);
     }
 
     function Delete(formId) {
-        var found = FindById(formId);
-        if (found != null) {
-         forms.splice(users.indexOf(found), 1);
+        var foundform = FindById(formId);
+        var IDofUser = foundform.userId;
+        if (foundform != null) {
+         forms.splice(forms.indexOf(foundform), 1);
         }
+        var result = findAllFormsofUserId(IDofUser);
+        return result;
     }
 
     function findFormByTitle(title) {
