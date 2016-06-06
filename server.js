@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var connectionString = 'mongodb://127.0.0.1:27017/FormBuilderApp';
 
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    console.log("Passwordddddd: " +  process.env.OPENSHIFT_MONGODB_DB_PASSWORD);
+    console.log("Password: " +  process.env.OPENSHIFT_MONGODB_DB_PASSWORD);
     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
         process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
         process.env.OPENSHIFT_MONGODB_DB_HOST + ":" +
@@ -31,8 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 require("./public/assignment/server/app.js")(app, mongoose, db, UserModel);
-app.listen(port, ipaddress); // /Users/Rammer/WebstormProjects/cs4550/webdevelopment/README.md
+app.listen(port, ipaddress);
 
