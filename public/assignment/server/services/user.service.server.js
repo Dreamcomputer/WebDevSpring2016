@@ -32,17 +32,32 @@ module.exports = function(app, usermodel) {
             username: username,
             password: password
         };
-        var user = usermodel.findUserByCredentials(credentials);
-        //
-        req.session.currentUser = user;
-        res.json(user);
+        usermodel.findUserByCredentials(credentials)
+        .then(
+            function (doc) {
+                res.json(doc);
+            },
+            function (err) {
+                res.status(400).send(err);
+            });
     }
 
     function createUser(req, res) {
         var user = req.body;
+
+        usermodel.Create(user)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
+        /*
         var newUsers = usermodel.Create(user);
         req.session.currentUser = user;
         res.json(newUsers);
+        */
     }
 
     function findAllUsers(req, res) {
@@ -74,10 +89,37 @@ module.exports = function(app, usermodel) {
 
     function updateUserbyId(req, res) {
         var id = req.params.id;
+        console.log("user service server");
+        console.log(id);
         var user = req.body;
+        console.log(user);
+
+        usermodel.Update(id, user)
+            .then(
+                function (na) {
+                    usermodel.FindById(id)
+                        .then(
+                            function (doc) {
+                                console.log("user service server - 3");
+                                res.json(doc);
+                            }
+                        ),
+                        function (err) {
+                            console.log("user service server - 4");
+                            res.status(400).send(err);
+                        }
+                },
+                function (err) {
+                    console.log("user service server - 5");
+                    res.status(400).send(err);
+                }
+            );
+
+        /*
         var found = usermodel.Update(id, user);
         req.session.currentUser = user;
         res.json(found);
+        */
     }
 
     function deleteUserById(req, res) {

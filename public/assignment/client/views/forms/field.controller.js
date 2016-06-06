@@ -9,7 +9,7 @@
         vm.currentField = null;
         vm.eField = null;
         vm.editField = editField;
-        vm.commitEdit = commitEdit;
+        vm.commit = commit;
         vm.deleteField = deleteField;
         vm.addField = addField;
         vm.reorder = reorder;
@@ -23,7 +23,7 @@
                 'Radio Buttons Field'
             ];
 
-        var formId = "000";
+        var formId;
         if ($routeParams.formId) {
             formId = $routeParams.formId;
         }
@@ -116,7 +116,7 @@
             }
         }
 
-        function commitEdit(field) {
+        function commit(field) {
 
             vm.eField = field;
             var isOption = !(field.type == 'TEXT' || field.type == 'TEXTAREA');

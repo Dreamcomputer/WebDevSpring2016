@@ -10,15 +10,35 @@ module.exports = function(app, formmodel) {
     app.put("/api/assignment/form/:formId", updateFormbyId);
 
     function findAllFormsofUserId(req, res) {
+        var Id = req.params.userId;
+        formmodel.findAllFormsforUserId(Id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+        /*
         var userId = req.params.userId;
-        var found = formmodel.findAllFormsofUserId(userId);
+        var found = formmodel.findAllFormsofUserIdd(userId);
         res.json(found);
+        */
     }
 
     function findFormbyId(req, res) {
-        var formId = req.params.formId;
-        var found = formmodel.FindById(formId);
-        res.json(found);
+
+        var Id = req.params.formId;
+        formmodel.FindById(Id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteFormbyId(req, res) {
@@ -35,9 +55,16 @@ module.exports = function(app, formmodel) {
     }
 
     function updateFormbyId(req, res) {
-        var formId = req.params.formId;
+        var Id = req.params.formId;
         var form = req.body;
-        var result = formmodel.Update(formId, form);
-        res.json(result);
+        formmodel.Update(Id, form)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    status(400).send(err);
+                }
+            );
     }
 };

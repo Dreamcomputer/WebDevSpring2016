@@ -16,19 +16,15 @@
 
         // To update the current view with current user's information
         function init() {
-            UserService.getCurrentUser()
-                .then(function(response) {
-                    if (response.data) {
-                        vm.user = response.data;
-                    }
-                });
+            var user = UserService.getCurrentUser();
+            console.log("In profile controller");
+            console.log(user);
+            vm.user = user;
         }
         init();
 
         // To create a new object with updated attributes
         function update(user) {
-            console.log("ppppp");
-            console.log(user);
             UserService.updateUser(vm.user._id, user)
                 .then(function(response) {
                 if (response.data) {

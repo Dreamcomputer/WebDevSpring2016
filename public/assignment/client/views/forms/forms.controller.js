@@ -43,7 +43,8 @@
                 FormService.createFormForUser(currentUser._id, newForm)
                     .then(function(response) {
                         if (response.data) {
-                            vm.forms = response.data;
+                            // To simply refresh the page for new data
+                            init();
                         }
                     });
             }
@@ -65,7 +66,8 @@
                 FormService.updateFormById(selectedForm._id, updatedForm)
                     .then(function(response) {
                         if (response.data){
-                            vm.forms = response.data;
+                            // To simply refresh the page for new data
+                            init();
                         }
                     });
             }
@@ -78,7 +80,8 @@
             FormService.deleteFormById(deleteFormId)
                 .then(function(response) {
                     if (response.data) {
-                        vm.forms = response.data;
+                        // To simply refresh the page for new data
+                        init();
                     }
             });
         }

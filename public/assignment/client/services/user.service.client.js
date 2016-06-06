@@ -9,7 +9,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService($http) {
+    function UserService($http, $rootScope) {
 
         var api = {
             findUserByCredentials: findUserByCredentials,
@@ -29,7 +29,11 @@
         return api;
 
         function getCurrentUser() {
-            return $http.get("/api/assignment/currentuser");
+            console.log(" in user service client top");
+            console.log($rootScope.currentUser);
+            console.log($rootScope.currentUser.user_id);
+            return $rootScope.currentUser;
+            //return $http.get("/api/assignment/currentuser");
         }
 
         function login(username, password) {
@@ -57,6 +61,8 @@
         }
 
         function updateUser(userId, user) {
+            console.log("in user service client");
+            console.log(userId, user);
             return $http.put("/api/assignment/user/" + userId, user);
         }
 

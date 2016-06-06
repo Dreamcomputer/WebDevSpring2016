@@ -5,7 +5,7 @@
  * Created by Rammer on 5/28/16.
  */
 
-module.exports = function(app, usermodel, formmodel) {
+module.exports = function(app, formmodel) {
     app.get("/api/assignment/form/:formId/field", findAllFieldsforFormId);
     app.get("/api/assignment/form/:formId/field/:fieldId", findFieldbyFieldandFormId);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldbyFieldandFormId);
@@ -14,8 +14,15 @@ module.exports = function(app, usermodel, formmodel) {
 
     function findAllFieldsforFormId(req, res) {
         var formId = req.params.formId;
-        var found = formmodel.findAllFieldsForFormId(formId);
-        res.json(found);
+        formmodel.findAllFieldsForFormId(formId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findFieldbyFieldandFormId(req, res) {

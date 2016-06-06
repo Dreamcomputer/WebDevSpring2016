@@ -18,7 +18,7 @@
         // (only listed the ones that are needed to control the view)
         vm.username;
         vm.password;
-        vm.email;/Users/Rammer/WebstormProjects/cs4550/webdevelopment
+        vm.email;
 
         function register() {
             var newUser = {
@@ -26,7 +26,7 @@
                 lastName: null,
                 username: vm.username,
                 password: vm.password,
-                email: vm.email
+                emails: vm.email
             };
 
         UserService.createUser(newUser)
