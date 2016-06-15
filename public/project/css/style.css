@@ -1,0 +1,10 @@
+/* Custom style adds */
+
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-brand>img {
+    height: 60px;
+    padding: 0px;
+    width: auto;
+}

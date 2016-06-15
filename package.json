@@ -28,9 +28,6 @@
     "body-parser": "^1.15.0",
     "mongoose": "^4.2.3"
   },
-  "scripts": {
-    "start": "node server.js"
-  },
   "devDependencies": {},
   "bundleDependencies": [],
   "private": true,
