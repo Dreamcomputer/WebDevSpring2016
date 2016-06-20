@@ -1,4 +1,42 @@
 
+/**
+ * Created by Rammer on 6/15/16.
+ */
+
+/** FOR PROJECT **/
+
+
+ var express = require('express');
+ var app = express();
+ app.use(express.static(__dirname + '/public'));
+
+ var session = require('express-session');
+ app.use(session({
+    secret: 'keyboard cat'
+}));
+
+ // Assignmnet 5: DB programming with MongoDB and Mongoose
+ var mongoose = require('mongoose');
+ var connectionString = 'mongodb://127.0.0.1:27017/CheckLogApp';
+
+ var db = mongoose.connect(connectionString);
+ var UserModel = require("./public/project/server/models/user.model.js")(mongoose, db);
+
+
+ // install, load, and configure body parser module
+ var bodyParser = require('body-parser');
+ app.use(bodyParser.urlencoded({ extended: true }));
+ app.use(bodyParser.json());
+
+ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+
+ require("./public/project/server/app.js")(app, mongoose, db, UserModel);
+ app.listen(port, ipaddress);
+
+
+
+/** FOR ASSIGNMENT
 var express = require('express');
 var app = express();
 app.use(express.static(__dirname + '/public'));
@@ -36,3 +74,4 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 require("./public/assignment/server/app.js")(app, mongoose, db, UserModel);
 app.listen(port, ipaddress);
 
+**/

@@ -6,7 +6,7 @@
     'use strict';
 
     angular
-        .module("FormBuilderApp")
+        .module("CheckLogApp")
         .controller("ProfileController", ProfileController);
 
     function ProfileController($scope, $rootScope, $location, UserService){
@@ -25,10 +25,10 @@
         function update(user) {
             UserService.updateUser(vm.user._id, user)
                 .then(function(response) {
-                if (response.data) {
-                    $location.url("/profile");
-                }
-            });
+                    if (response.data) {
+                        $location.url("/profile");
+                    }
+                });
 
         }
     }
