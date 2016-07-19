@@ -8,11 +8,13 @@
                         <div class="form-group">
                             <label for="viewchecksfordate" class="col-sm-2 control-label">Date</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="viewchecksfordate" placeholder="Pick a Date">
-                                <div class="calendar-demo">
-                                    <!-- http://www.jqueryscript.net/time-clock/Simple-Year-Calendar-Plugin-For-jQuery-Bootstrap.html -->
-                                   <!-- $('.calendar-demo').calendar(); -->
-                                </div>
+                                <input type="date" class="form-control" id="viewchecksfordate" ng-model="date" value="{{ date | date: 'yyyy-MM-dd' }}" placeholder="Pick a Date">
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button ng-click="vm.displayChecks(date)" type="submit" class="btn btn-default">Display</button>
                             </div>
                         </div>
                     </form>
@@ -51,7 +53,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button ng-click="vm.addCheck(vm.log)" type="submit" class="btn btn-default">Submit</button>
+                                <button ng-click="vm.addCheck(vm.log)" type="submit" class="btn btn-default clear">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -60,6 +62,28 @@
 
         <div>
             <h1>Checks Dated Today:</h1>
+
+            <div class="table-responsive" ng-controller="LogController">
+                <table id="formsTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Check Details</th>
+                        <th>Note</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <!-- // Second row to show forms dynamically -->
+                    <tr ng-repeat="log in vm.logs | orderBy: 'date'">
+                        <td><a>{{log.name}}</a></td>
+                        <td>{{log.note}}</td>
+                        <td>{{ log.date | date: 'dd MMM yyyy' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
 

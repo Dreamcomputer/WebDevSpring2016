@@ -12,19 +12,24 @@
 
         var vm = this;
         vm.addCheck = addCheck;
+        vm.displayChecks = displayChecks;
 
         var currentUser = $rootScope.currentUser;
 
         var fileContent;
         var fileName;
 
+        // For Log Display
+        vm.logs = [];
 
-
-
-
-        console.log("ewkrjwehruiwyrewurkhkewj" + currentUser._id);
         function init() {
             // Put code to show today's check's here
+            LogService.findAlllogsForUser(currentUser._id)
+                .then(function(response) {
+                    if (response.data) {
+                        vm.logs = response.data;
+                    }
+                });
         }
         init();
 
@@ -37,14 +42,14 @@
         };
 
         function addCheck(log) {
-            console.log("helloe");
+            // Creating new log object
             var log = {
                 name: fileName,
                 content: fileContent,
                 userId: currentUser._id,
                 date: vm.log.date,
                 note: vm.log.note
-            }
+            };
             if (log) {
                 LogService.createCheckForUser(currentUser._id, log)
                     .then(function(response) {
@@ -54,7 +59,28 @@
                         }
                     });
             }
+            // Clearing all inputfields
             vm.log.note = null;
+            vm.log.date = null;
+            vm.log = null;
+        }
+
+        // Function for showing Checks for a Selected Date
+        function displayChecks(date) {
+
+            var selectedDate = date;
+            var formattedDate = selectedDate.toISOString().slice(0, 10);
+            console.log("Mine: " + formattedDate);
+
+            if (selectedDate) {
+                LogService.displayChecksForUser(currentUser._id, formattedDate)
+                    .then(function(response) {
+                        if (response.data) {
+
+                        }
+                    })
+            }
+
         }
 
     }

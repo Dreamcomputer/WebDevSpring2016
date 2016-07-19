@@ -20,11 +20,6 @@ module.exports = function(app, formmodel) {
                     res.status(400).send(err);
                 }
             );
-        /*
-        var userId = req.params.userId;
-        var found = formmodel.findAllFormsofUserIdd(userId);
-        res.json(found);
-        */
     }
 
     function findFormbyId(req, res) {

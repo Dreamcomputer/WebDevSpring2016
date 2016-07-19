@@ -7,9 +7,8 @@ module.exports = function (mongoose, db) {
     var LogModel = mongoose.model('Log', LogSchema);
 
     var api = {
-
-        // 2. Added function for formservice method
         createNewCheckforUserId: createNewCheckforUserId,
+        findAlllogsForUserId: findAlllogsForUserId
 
     };
     return api;
@@ -26,7 +25,6 @@ module.exports = function (mongoose, db) {
             date: check.date,
             note: check.note
         };
-        console.log("so reached here TOOO??" + newcheck.content + typeof (newcheck.content));
 
         var deferred = q.defer();
 
@@ -35,11 +33,30 @@ module.exports = function (mongoose, db) {
                 deferred.reject(err);
             }
             else {
+                console.log("This does work");
                 deferred.resolve(doc);
             }
         });
 
         return deferred.promise;
+    }
+
+    function findAlllogsForUserId(userId) {
+      //  console.log("You are being called");
+        var deferred = q.defer();
+        LogModel.find({userId: userId}, function(err, doc) {
+            if (err) {
+             //   console.log("failed here");
+                deferred.reject(err);
+            }
+            else {
+               // console.log("Well passed" + doc);
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+
     }
 
 

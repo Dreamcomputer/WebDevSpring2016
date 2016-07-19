@@ -11,14 +11,19 @@
     function LogService($http) {
 
         var service = {
-            createCheckForUser: createCheckForUser
+            createCheckForUser: createCheckForUser,
+            findAlllogsForUser: findAlllogsForUser
+
         };
 
         return service;
 
         function createCheckForUser(userId, check) {
-            console.log("so reached here TOOO?? CLIENT - 1/3");
             return $http.post("/api/assignment/user/" + userId + "/check", check);
+        }
+
+        function findAlllogsForUser(userId) {
+            return $http.get("/api/assignment/user/" + userId + "/check");
         }
     }
 })();
