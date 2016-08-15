@@ -8,14 +8,11 @@ module.exports = function (mongoose, db) {
 
     var api = {
         createNewCheckforUserId: createNewCheckforUserId,
-        findAlllogsForUserId: findAlllogsForUserId
+        findAlllogsForUserId: findAlllogsForUserId,
+        displayChecksForUserDate: displayChecksForUserDate
 
     };
     return api;
-
-
-
-
 
     function createNewCheckforUserId(userId, check) {
         var newcheck = {
@@ -41,16 +38,32 @@ module.exports = function (mongoose, db) {
         return deferred.promise;
     }
 
+    // For Displaying checked for a particular date
+    function displayChecksForUserDate(userId, date) {
+        console.log("This is the date appearance: " + date);
+        var timeConstant = "T00:00:01Z";
+        var sDate = date.concat(timeConstant);
+        var deferred = q.defer(); // INsert the Mongod db query below with the date
+        LogModel.find({userId: userId, date: { $gte : (sDate) }}, function(err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+    }
+
     function findAlllogsForUserId(userId) {
       //  console.log("You are being called");
         var deferred = q.defer();
         LogModel.find({userId: userId}, function(err, doc) {
             if (err) {
-             //   console.log("failed here");
                 deferred.reject(err);
             }
             else {
-               // console.log("Well passed" + doc);
                 deferred.resolve(doc);
             }
         });

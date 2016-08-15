@@ -12,7 +12,8 @@
 
         var service = {
             createCheckForUser: createCheckForUser,
-            findAlllogsForUser: findAlllogsForUser
+            findAlllogsForUser: findAlllogsForUser,
+            displayChecksForUser: displayChecksForUser
 
         };
 
@@ -24,6 +25,10 @@
 
         function findAlllogsForUser(userId) {
             return $http.get("/api/assignment/user/" + userId + "/check");
+        }
+
+        function displayChecksForUser(userId, date) {
+            return $http.get("/api/assignment/user/" + userId + "/date/" + date + "/check");
         }
     }
 })();

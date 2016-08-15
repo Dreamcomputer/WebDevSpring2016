@@ -1,9 +1,9 @@
-<div ng-controller="LogController as vm" class="col-sm-12 col-md-12 main">
+<div ng-controller="LogController as vm" class="col-sm-10 col-md-10 main">
 
 
 <div class="row">
                 <div class="col-md-4">
-                    <h1 class="page-header">View Checks For:</h1>
+                    <h1 class="page-header">View Checks Since:</h1>
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label for="viewchecksfordate" class="col-sm-2 control-label">Date</label>
@@ -61,9 +61,10 @@
             </div>
 
         <div>
-            <h1>Checks Dated Today:</h1>
+
 
             <div class="table-responsive" ng-controller="LogController">
+                <h1>{{vm.title}}</h1>
                 <table id="formsTable" class="table table-striped">
                     <thead>
                     <tr>
